@@ -14,42 +14,30 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {onUserLogin} from '../redux/actions/AuthActions';
 
-const Reducers = (state, action) => {
-  switch (action.type) {
-    case 'CHANGE_DATA':
-      return {...state, [action.name]: action.payload};
-    case 'INITIAL_STATE':
-      return {username: '', password: '', passHidden: true};
-    default:
-      return state;
-  }
-};
-
 export const Login = ({navigation}) => {
-  const dispatch = useDispatch();
-  const user = useSelector(({Auth}) => Auth.user);
-  const loading = useSelector(({Auth}) => Auth.loading);
+  const Actions = useDispatch();
+  const User = useSelector(({Auth}) => Auth.username);
+  const Loading = useSelector(({Auth}) => Auth.loading);
+  const AuthChecked = useSelector(({Auth}) => Auth.authChecked);
   const [username, setUsername] = useState('');
 
-  // useEffect(() => {
-  //   if (user) {
-  //     const resetAction = CommonActions.reset({
-  //       index: 0,
-  //       routes: [{name: 'MainStack'}],
-  //     });
-  //     action({type: 'INITIAL_STATE'});
-  //     navigation.dispatch(resetAction);
-  //   }
-  // });
+  useEffect(() => {
+    if (User) {
+      const resetAction = CommonActions.reset({
+        index: 0,
+        routes: [{name: 'MainTab'}],
+      });
+      navigation.dispatch(resetAction);
+    }
+  });
 
   const onBtnLoginPress = () => {
-    if (!loading) {
-      dispatch(onUserLogin({username}));
+    if (!Loading) {
+      Actions(onUserLogin(username));
     }
   };
 
-  if (!user) {
-    console.log('user', user);
+  if (AuthChecked && !User) {
     return (
       <>
         <View style={style.LoginContainer}>
@@ -87,7 +75,7 @@ export const Login = ({navigation}) => {
               <TouchableOpacity
                 onPress={onBtnLoginPress}
                 style={style.LoginButtonStyle}>
-                {loading ? (
+                {Loading ? (
                   <ActivityIndicator size="small" color="#fff" />
                 ) : (
                   <Text style={style.LoginButtonText}>Login</Text>
@@ -100,7 +88,7 @@ export const Login = ({navigation}) => {
           <View style={style.LoginButtonArea}>
             <View style={style.RegButtonContainer}>
               <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                {loading ? (
+                {Loading ? (
                   <ActivityIndicator size="small" color="#fff" />
                 ) : (
                   <Text style={style.RegButtonText}>Go to Register</Text>

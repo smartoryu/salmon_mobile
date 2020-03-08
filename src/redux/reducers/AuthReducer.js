@@ -1,14 +1,9 @@
-import {
-  LOGIN_START,
-  LOGIN_FAILED,
-  LOGIN_SUCCESS,
-  USER_LOGOUT,
-} from '../../helpers/types';
+import {LOGIN_START, LOGIN_FAILED, LOGIN_SUCCESS} from '../../helpers/types';
 
 const INITIAL_STATE = {
-  user: null,
-
+  username: '',
   loading: false,
+  authChecked: false,
 };
 
 export default (state = INITIAL_STATE, {type, payload}) => {
@@ -16,13 +11,9 @@ export default (state = INITIAL_STATE, {type, payload}) => {
     case LOGIN_START:
       return {...state, loading: true};
     case LOGIN_FAILED:
-      return INITIAL_STATE;
+      return {...INITIAL_STATE, username: payload, authChecked: true};
     case LOGIN_SUCCESS:
-      return {...INITIAL_STATE, user: payload};
-
-    case USER_LOGOUT:
-      return INITIAL_STATE;
-
+      return {...INITIAL_STATE, username: payload, authChecked: true};
     default:
       return state;
   }

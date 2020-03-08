@@ -5,7 +5,7 @@ import {createStore, applyMiddleware} from 'redux';
 import reduxThunk from 'redux-thunk';
 import Reducers from './src/redux/reducers';
 
-import MainStack from './src/components/MainStack';
+import {MainStack} from './src/components/MainStack';
 
 const App = () => {
   console.disableYellowBox = true;
