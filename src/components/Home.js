@@ -11,7 +11,7 @@ import {
 import {Header} from 'react-native-elements';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {getPostList} from '../redux/actions';
+import {getPostList, getRestaurantDetails} from '../redux/actions';
 import {HomeIcon} from './HomeIcon';
 import {RestaurantCard} from './RestaurantCard';
 
@@ -25,6 +25,11 @@ export const Home = ({navigation}) => {
   useEffect(() => {
     Actions(getPostList());
   }, [Actions]);
+
+  const goToDetails = restaurant => {
+    Actions(getRestaurantDetails(restaurant));
+    navigation.navigate('RestaurantDetails');
+  };
 
   const onRefresh = () => {
     console.log('refresh');
@@ -110,7 +115,8 @@ export const Home = ({navigation}) => {
       <FlatList
         data={PostList}
         renderItem={({item}) => (
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback
+            onPress={() => goToDetails(item.restaurant)}>
             <View style={{width: '50%'}}>
               <RestaurantCard data={item} />
             </View>
@@ -118,7 +124,7 @@ export const Home = ({navigation}) => {
         )}
         style={{width: '98%'}}
         numColumns={2}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.restaurant.name}
         onRefresh={onRefresh}
         refreshing={Refresh}
       />

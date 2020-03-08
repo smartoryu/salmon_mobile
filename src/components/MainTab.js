@@ -2,15 +2,13 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
 
-// import HomeNav from './HomeNav';
-import {Home} from './Home';
+import {HomeStack} from './HomeStack';
 import {Logout} from './Logout';
 
 const ScreenOption = ({route}) => {
   return {
     tabBarIcon: ({focused, color, size}, iconName = '') => {
-      // if (route.name === 'HomeNav') {
-      if (route.name === 'Home') {
+      if (route.name === 'HomeStack') {
         iconName = focused ? 'home' : 'home';
       } else if (route.name === 'Logout') {
         iconName = focused ? 'restaurant-menu' : 'restaurant-menu';
@@ -25,20 +23,17 @@ export const MainTab = ({navigation}) => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeStack"
       screenOptions={ScreenOption}
       tabBarOptions={{
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',
         showLabel: false,
       }}>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen
-        name="Logout"
-        component={() => {
-          return <Logout rootStack={navigation} />;
-        }}
-      />
+      <Tab.Screen name="HomeStack" component={HomeStack} />
+      <Tab.Screen name="Logout">
+        {() => <Logout rootStack={navigation} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 };
