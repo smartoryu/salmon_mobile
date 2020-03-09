@@ -16,6 +16,7 @@ export const RestaurantCard = ({data}) => {
         style={{
           flexDirection: 'column',
           borderWidth: 0,
+          height: 80,
           marginTop: 0,
           marginHorizontal: 0,
         }}>
@@ -25,12 +26,16 @@ export const RestaurantCard = ({data}) => {
             flex: 1,
             width: '100%',
             marginTop: -10,
-            marginBottom: -5,
-            marginLeft: -30,
+            marginBottom: -10,
             height: 25,
-            alignItems: 'center',
           }}>
-          <Text>
+          <Text
+            style={{
+              // borderWidth: 1,
+              flex: 1,
+              marginLeft: 0,
+              width: '100%',
+            }}>
             <Icon
               type="FontAwesome"
               name="star"
@@ -42,19 +47,25 @@ export const RestaurantCard = ({data}) => {
             </Text>
           </Text>
         </Left>
+
         <Left
           style={{
             // borderWidth: 1,
             flex: 1,
-            marginBottom: -10,
-            marginLeft: -30,
+            flexDirection: 'column',
+            marginBottom: 0,
             width: '100%',
-            height: 25,
+            height: 33,
             alignItems: 'center',
           }}>
           <Text
             style={{
+              // borderWidth: 1,
+              marginLeft: 0,
+              width: '100%',
               fontSize: 13,
+              flex: 1,
+              alignItems: 'flex-start',
               fontWeight: 'bold',
             }}>
             {data.restaurant.name}
